@@ -73,7 +73,7 @@ cursor:pointer;
 
 #program{
 margin-top:20px;
-line-height:1.6;
+line-height:1.7;
 }
 </style>
 </head>
@@ -89,7 +89,7 @@ line-height:1.6;
 
 <h2>AI Ders Planı Oluştur</h2>
 
-<input type="text" id="hedef" placeholder="Hedefin ne? (Örn: YKS kazanmak)">
+<input type="text" id="hedef">
 <input type="text" id="dersler" placeholder="Dersleri virgülle yaz">
 <input type="number" id="saat" placeholder="Günlük kaç saat?">
 
@@ -121,7 +121,7 @@ program += `📚 ${ders} → ${gorev} (${sure} saat)<br>`;
 
 });
 
-program += `<br>🔥 Motivasyon: ${hedef} için bugün disiplinli çalış!`;
+program += `<br>🔥 Motivasyon: ${hedef} hedefine ulaşmak için bugün attığın küçük adımlar yarının büyük başarısını oluşturacak. Odaklan, dikkatini dağıtan şeyleri kapat ve planına sadık kal. Sen bunu yapabilecek güce sahipsin.`;
 
 document.getElementById("program").innerHTML = program;
 
