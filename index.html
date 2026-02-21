@@ -126,12 +126,12 @@ document.getElementById("program").innerHTML = program;
 // PLAN KAYDETME (LocalStorage)
 function savePlan(){
 let username = document.getElementById("username").value;
-let program = document.getElementById("program").innerHTML;
-if(!username || !program){
+let plan = document.getElementById("program").innerHTML;
+if(!username || !plan){
 alert("Önce plan oluştur ve kullanıcı adını gir!");
 return;
 }
-localStorage.setItem("plan_" + username, program);
+localStorage.setItem("plan_" + username, plan);
 alert("Plan kaydedildi!");
 }
 
