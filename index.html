@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ders Çalışma Planı</title>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background:#121212;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+background:#1e1e1e;
+padding:25px;
+border-radius:15px;
+width:320px;
+text-align:center;
+}
+
+input, button{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+}
+
+button{
+background:#1db954;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.plan{
+margin-top:15px;
+text-align:left;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Ders Planı Oluştur</h2>
+
+<input type="text" id="subjects" placeholder="Dersleri virgülle yaz">
+
+<input type="number" id="hours" placeholder="Günlük kaç saat?">
+
+<button onclick="createPlan()">Plan Oluştur</button>
+
+<div class="plan" id="plan"></div>
+</div>
+
+<script>
+function createPlan(){
+
+let subjects = document.getElementById("subjects").value.split(",");
+let hours = document.getElementById("hours").value;
+
+let days = ["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"];
+
+let planHTML = "";
+
+for(let i=0;i<days.length;i++){
+
+let lesson = subjects[i % subjects.length];
+
+planHTML += days[i] + " → " + lesson + " (" + hours + " saat)<br>";
+}
+
+document.getElementById("plan").innerHTML = planHTML;
+}
+</script>
+
+</body>
+</html>
