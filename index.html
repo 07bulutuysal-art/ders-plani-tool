@@ -3,19 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Planify AI</title>
+<title>fdwe – AI Study Planner</title>
+<link rel="icon" href="logo.png">
 
 <style>
-
 body{
 margin:0;
 font-family:sans-serif;
 background:linear-gradient(135deg,#0f0f0f,#1a1a2e);
 color:white;
 }
-
-/* LOGO */
-
 .logo{
 display:flex;
 justify-content:center;
@@ -23,13 +20,11 @@ align-items:center;
 gap:12px;
 margin-top:40px;
 }
-
 .logo-img{
 width:65px;
 height:65px;
 object-fit:contain;
 }
-
 .logo-text{
 font-size:40px;
 font-weight:800;
@@ -37,9 +32,6 @@ background:linear-gradient(90deg,#00ffcc,#7d2ae8);
 -webkit-background-clip:text;
 color:transparent;
 }
-
-/* KART */
-
 .container{
 max-width:500px;
 margin:30px auto;
@@ -48,9 +40,6 @@ padding:30px;
 border-radius:20px;
 backdrop-filter:blur(15px);
 }
-
-/* INPUT */
-
 input{
 width:100%;
 padding:15px;
@@ -59,9 +48,6 @@ border-radius:12px;
 border:none;
 font-size:16px;
 }
-
-/* BUTTON */
-
 button{
 width:100%;
 padding:15px;
@@ -74,12 +60,10 @@ font-size:16px;
 font-weight:bold;
 cursor:pointer;
 }
-
 #program{
 margin-top:20px;
 line-height:1.7;
 }
-
 </style>
 </head>
 
@@ -87,7 +71,7 @@ line-height:1.7;
 
 <div class="logo">
 <img src="logo.png" class="logo-img">
-<div class="logo-text">Planify AI</div>
+<div class="logo-text">fdwe</div>
 </div>
 
 <div class="container">
@@ -99,37 +83,52 @@ line-height:1.7;
 <input type="number" id="saat" placeholder="Günlük kaç saat?">
 
 <button onclick="planOlustur()">AI Plan Oluştur</button>
+<button onclick="premiumAlert()">Premium Özellik</button>
 
 <div id="program"></div>
 
 </div>
 
 <script>
-
+// Kullanıcı plan kaydetmek için LocalStorage kullanılıyor
 function planOlustur(){
-
 let hedef = document.getElementById("hedef").value;
 let dersler = document.getElementById("dersler").value.split(",");
 let saat = document.getElementById("saat").value;
+if(!hedef || dersler.length===0 || !saat){
+alert("Lütfen tüm alanları doldur!");
+return;
+}
 
 let gorevler = ["Konu çalış","Test çöz","Tekrar yap","Video izle"];
+let program = `<h3>🎯 Hedef: ${hedef}</h3><h3>🤖 AI Çalışma Planın:</h3>`;
 
-let program = `<h3>🎯 Hedef: ${hedef}</h3>`;
-program += "<h3>🤖 AI Çalışma Planın:</h3>";
-
-dersler.forEach(ders => {
-
+dersler.forEach(ders=>{
 let gorev = gorevler[Math.floor(Math.random()*gorevler.length)];
 let sure = (saat/dersler.length).toFixed(1);
-
 program += `📚 ${ders} → ${gorev} (${sure} saat)<br>`;
-
 });
 
+// Motivasyon
 program += `<br>🔥 Motivasyon: ${hedef} hedefine ulaşmak için bugün attığın küçük adımlar yarının büyük başarısını oluşturacak. Odaklan, dikkatini dağıtan şeyleri kapat ve planına sadık kal. Sen bunu yapabilecek güce sahipsin.`;
 
-document.getElementById("program").innerHTML = program;
+// LocalStorage’a kaydet
+localStorage.setItem("sonPlan",program);
 
+document.getElementById("program").innerHTML=program;
+}
+
+// Sayfa açıldığında planı geri yükle
+window.onload = function(){
+let kayitli = localStorage.getItem("sonPlan");
+if(kayitli){
+document.getElementById("program").innerHTML = kayitli;
+}
+}
+
+// Premium buton simülasyonu
+function premiumAlert(){
+alert("Premium Özellik: AI önerili detaylı plan ve ilerleme takibi yakında eklenecek! Satış için hazır.");
 }
 
 </script>
