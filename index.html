@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Planify</title>
+<title>Planify AI</title>
 
 <style>
 
@@ -14,12 +14,10 @@ background:linear-gradient(135deg,#0f0f0f,#1a1a2e);
 color:white;
 }
 
-/* LOGO */
-
 .logo{
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 gap:12px;
 margin-top:40px;
 }
@@ -33,12 +31,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-size:30px;
-box-shadow:0 0 30px rgba(125,42,232,0.6);
-transition:0.3s;
-}
-
-.logo-icon:hover{
-transform:scale(1.1) rotate(8deg);
 }
 
 .logo-text{
@@ -49,14 +41,6 @@ background:linear-gradient(90deg,#00ffcc,#7d2ae8);
 color:transparent;
 }
 
-.tagline{
-text-align:center;
-color:#aaa;
-margin-bottom:30px;
-}
-
-/* KART */
-
 .container{
 max-width:500px;
 margin:30px auto;
@@ -64,10 +48,7 @@ background:rgba(255,255,255,0.05);
 padding:30px;
 border-radius:20px;
 backdrop-filter:blur(15px);
-box-shadow:0 0 25px rgba(0,0,0,0.4);
 }
-
-/* INPUT */
 
 input{
 width:100%;
@@ -75,11 +56,8 @@ padding:15px;
 margin-top:12px;
 border-radius:12px;
 border:none;
-outline:none;
 font-size:16px;
 }
-
-/* BUTTON */
 
 button{
 width:100%;
@@ -92,18 +70,10 @@ color:white;
 font-size:16px;
 font-weight:bold;
 cursor:pointer;
-transition:0.3s;
 }
-
-button:hover{
-transform:scale(1.05);
-}
-
-/* SONUÇ */
 
 #program{
 margin-top:20px;
-text-align:left;
 line-height:1.6;
 }
 
@@ -113,21 +83,18 @@ line-height:1.6;
 <body>
 
 <div class="logo">
-<div class="logo-icon">⚡</div>
-<div class="logo-text">Planify</div>
+<div class="logo-icon">🤖</div>
+<div class="logo-text">Planify AI</div>
 </div>
-
-<p class="tagline">Akıllı ders çalışma planı oluşturucu</p>
 
 <div class="container">
 
-<h2>Ders Planı Oluştur</h2>
+<h2>AI Ders Planı Oluştur</h2>
 
 <input type="text" id="dersler" placeholder="Dersleri virgülle yaz">
-
 <input type="number" id="saat" placeholder="Günlük kaç saat?">
 
-<button onclick="planOlustur()">Plan Oluştur</button>
+<button onclick="planOlustur()">AI Plan Oluştur</button>
 
 <div id="program"></div>
 
@@ -140,11 +107,21 @@ function planOlustur(){
 let dersler = document.getElementById("dersler").value.split(",");
 let saat = document.getElementById("saat").value;
 
-let program = "<h3>Günlük Plan</h3>";
+let zorluk = ["Kolay tekrar","Test çöz","Konu çalış","Video izle"];
+let program = "<h3>🤖 AI Önerisi:</h3>";
 
-dersler.forEach(ders => {
-program += "📚 " + ders + " → " + saat/dersler.length + " saat <br>";
+dersler.forEach((ders,i)=>{
+
+let gorev = zorluk[Math.floor(Math.random()*zorluk.length)];
+let sure = (saat/dersler.length).toFixed(1);
+
+program += `
+📚 ${ders} → ${gorev} (${sure} saat) <br>
+`;
+
 });
+
+program += "<br>🔥 25 dk çalışma + 5 dk mola sistemi önerilir.";
 
 document.getElementById("program").innerHTML = program;
 
