@@ -3,82 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Planify - Study Planner</title>
+<title>Planify</title>
 
 <style>
+
 body{
-font-family: Arial, sans-serif;
-background:#121212;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
 margin:0;
-}
-
-.container{
-background:#1e1e1e;
-padding:25px;
-border-radius:15px;
-width:320px;
-text-align:center;
-}
-
-input, button{
-width:100%;
-padding:10px;
-margin-top:10px;
-border:none;
-border-radius:8px;
-}
-
-button{
-background:#1db954;
+font-family:sans-serif;
+background:linear-gradient(135deg,#0f0f0f,#1a1a2e);
 color:white;
-font-weight:bold;
-cursor:pointer;
 }
 
-.plan{
-margin-top:15px;
-text-align:left;
-}
+/* LOGO */
 
 .logo{
 display:flex;
 align-items:center;
 justify-content:center;
 gap:12px;
-margin-top:20px;
+margin-top:40px;
 }
 
 .logo-icon{
-width:55px;
-height:55px;
-border-radius:16px;
+width:60px;
+height:60px;
+border-radius:18px;
 background:linear-gradient(135deg,#00ffcc,#7d2ae8);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:28px;
-color:white;
-box-shadow:0 0 25px rgba(125,42,232,0.6);
+font-size:30px;
+box-shadow:0 0 30px rgba(125,42,232,0.6);
 transition:0.3s;
 }
 
 .logo-icon:hover{
 transform:scale(1.1) rotate(8deg);
-box-shadow:0 0 35px rgba(0,255,204,0.9);
 }
 
 .logo-text{
-font-size:38px;
+font-size:40px;
 font-weight:800;
 background:linear-gradient(90deg,#00ffcc,#7d2ae8);
 -webkit-background-clip:text;
 color:transparent;
-font-family:sans-serif;
 }
 
 .tagline{
@@ -87,49 +55,101 @@ color:#aaa;
 margin-bottom:30px;
 }
 
+/* KART */
+
+.container{
+max-width:500px;
+margin:30px auto;
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:20px;
+backdrop-filter:blur(15px);
+box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
+
+/* INPUT */
+
+input{
+width:100%;
+padding:15px;
+margin-top:12px;
+border-radius:12px;
+border:none;
+outline:none;
+font-size:16px;
+}
+
+/* BUTTON */
+
+button{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#00ffcc,#7d2ae8);
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* SONUÇ */
+
+#program{
+margin-top:20px;
+text-align:left;
+line-height:1.6;
+}
 
 </style>
 </head>
 
 <body>
 
-<div class="container">
-<div style="display:flex;align-items:center;gap:10px;justify-content:center;">
-
-  <div class="logo">
-  <div class="logo-icon">⚡</div>
-  <div class="logo-text">Planify</div>
+<div class="logo">
+<div class="logo-icon">⚡</div>
+<div class="logo-text">Planify</div>
 </div>
+
 <p class="tagline">Akıllı ders çalışma planı oluşturucu</p>
 
-<input type="text" id="subjects" placeholder="Dersleri virgülle yaz">
+<div class="container">
 
-<input type="number" id="hours" placeholder="Günlük kaç saat?">
+<h2>Ders Planı Oluştur</h2>
 
-<button onclick="createPlan()">Plan Oluştur</button>
+<input type="text" id="dersler" placeholder="Dersleri virgülle yaz">
 
-<div class="plan" id="plan"></div>
+<input type="number" id="saat" placeholder="Günlük kaç saat?">
+
+<button onclick="planOlustur()">Plan Oluştur</button>
+
+<div id="program"></div>
+
 </div>
 
 <script>
-function createPlan(){
 
-let subjects = document.getElementById("subjects").value.split(",");
-let hours = document.getElementById("hours").value;
+function planOlustur(){
 
-let days = ["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"];
+let dersler = document.getElementById("dersler").value.split(",");
+let saat = document.getElementById("saat").value;
 
-let planHTML = "";
+let program = "<h3>Günlük Plan</h3>";
 
-for(let i=0;i<days.length;i++){
+dersler.forEach(ders => {
+program += "📚 " + ders + " → " + saat/dersler.length + " saat <br>";
+});
 
-let lesson = subjects[i % subjects.length];
+document.getElementById("program").innerHTML = program;
 
-planHTML += days[i] + " → " + lesson + " (" + hours + " saat)<br>";
 }
 
-document.getElementById("plan").innerHTML = planHTML;
-}
 </script>
 
 </body>
