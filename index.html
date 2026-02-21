@@ -7,67 +7,14 @@
 <link rel="icon" href="logo.png">
 
 <style>
-body{
-margin:0;
-font-family:sans-serif;
-background:linear-gradient(135deg,#0f0f0f,#1a1a2e);
-color:white;
-}
-/* LOGO */
-.logo{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:12px;
-margin-top:40px;
-}
-.logo-img{
-width:65px;
-height:65px;
-object-fit:contain;
-}
-.logo-text{
-font-size:40px;
-font-weight:800;
-background:linear-gradient(90deg,#00ffcc,#7d2ae8);
--webkit-background-clip:text;
-color:transparent;
-}
-/* KART */
-.container{
-max-width:500px;
-margin:30px auto;
-background:rgba(255,255,255,0.05);
-padding:30px;
-border-radius:20px;
-backdrop-filter:blur(15px);
-}
-/* INPUT */
-input{
-width:100%;
-padding:15px;
-margin-top:12px;
-border-radius:12px;
-border:none;
-font-size:16px;
-}
-/* BUTTON */
-button{
-width:100%;
-padding:15px;
-margin-top:15px;
-border:none;
-border-radius:12px;
-background:linear-gradient(90deg,#00ffcc,#7d2ae8);
-color:white;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-}
-#program{
-margin-top:20px;
-line-height:1.7;
-}
+body{margin:0;font-family:sans-serif;background:linear-gradient(135deg,#0f0f0f,#1a1a2e);color:white;}
+.logo{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:40px;}
+.logo-img{width:65px;height:65px;object-fit:contain;}
+.logo-text{font-size:40px;font-weight:800;background:linear-gradient(90deg,#00ffcc,#7d2ae8);-webkit-background-clip:text;color:transparent;}
+.container{max-width:500px;margin:30px auto;background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;backdrop-filter:blur(15px);}
+input{width:100%;padding:15px;margin-top:12px;border-radius:12px;border:none;font-size:16px;}
+button{width:100%;padding:15px;margin-top:15px;border:none;border-radius:12px;background:linear-gradient(90deg,#00ffcc,#7d2ae8);color:white;font-size:16px;font-weight:bold;cursor:pointer;}
+#program{margin-top:20px;line-height:1.7;}
 </style>
 </head>
 
@@ -79,9 +26,7 @@ line-height:1.7;
 </div>
 
 <div class="container">
-
 <h2>AI Ders Planı Oluştur</h2>
-
 <input type="text" id="username" placeholder="Kullanıcı Adı">
 <input type="text" id="hedef" placeholder="Hedefin ne?">
 <input type="text" id="dersler" placeholder="Dersleri virgülle yaz">
@@ -93,80 +38,70 @@ line-height:1.7;
 <button onclick="payPremium()">Premium Ol</button>
 
 <div id="program"></div>
-
 </div>
 
 <script>
 // PLAN OLUŞTURMA
 function planOlustur(){
-let hedef = document.getElementById("hedef").value;
-let dersler = document.getElementById("dersler").value.split(",");
-let saat = document.getElementById("saat").value;
-let username = document.getElementById("username").value;
-
-if(!username || !hedef || dersler.length===0 || !saat){
-alert("Lütfen tüm alanları doldur!");
-return;
-}
-
-let gorevler = ["Konu çalış","Test çöz","Tekrar yap","Video izle"];
-let program = `<h3>🎯 Hedef: ${hedef}</h3><h3>🤖 AI Çalışma Planın:</h3>`;
-
+let hedef=document.getElementById("hedef").value;
+let dersler=document.getElementById("dersler").value.split(",");
+let saat=document.getElementById("saat").value;
+let username=document.getElementById("username").value;
+if(!username||!hedef||dersler.length===0||!saat){alert("Tüm alanları doldur!");return;}
+let gorevler=["Konu çalış","Test çöz","Tekrar yap","Video izle"];
+let program=`<h3>🎯 Hedef: ${hedef}</h3><h3>🤖 AI Çalışma Planın:</h3>`;
 dersler.forEach(ders=>{
-let gorev = gorevler[Math.floor(Math.random()*gorevler.length)];
-let sure = (saat/dersler.length).toFixed(1);
-program += `📚 ${ders} → ${gorev} (${sure} saat)<br>`;
+let gorev=gorevler[Math.floor(Math.random()*gorevler.length)];
+let sure=(saat/dersler.length).toFixed(1);
+program+=`📚 ${ders} → ${gorev} (${sure} saat)<br>`;
 });
-
-program += `<br>🔥 Motivasyon: ${hedef} hedefine ulaşmak için bugün attığın küçük adımlar yarının büyük başarısını oluşturacak. Odaklan, dikkatini dağıtan şeyleri kapat ve planına sadık kal. Sen bunu yapabilecek güce sahipsin.`;
-
-document.getElementById("program").innerHTML = program;
+program+=`<br>🔥 Motivasyon: ${hedef} hedefine ulaşmak için bugün attığın küçük adımlar yarının büyük başarısını oluşturacak. Odaklan, dikkatini dağıtan şeyleri kapat ve planına sadık kal. Sen bunu yapabilecek güce sahipsin.`;
+document.getElementById("program").innerHTML=program;
 }
 
-// PLAN KAYDETME (LocalStorage)
-function savePlan(){
-let username = document.getElementById("username").value;
-let plan = document.getElementById("program").innerHTML;
-if(!username || !plan){
-alert("Önce plan oluştur ve kullanıcı adını gir!");
-return;
-}
-localStorage.setItem("plan_" + username, plan);
+// PLAN KAYDETME (LocalStorage + Backend simülasyonu)
+async function savePlan(){
+let username=document.getElementById("username").value;
+let plan=document.getElementById("program").innerHTML;
+if(!username||!plan){alert("Önce plan oluştur ve kullanıcı adını gir!");return;}
+// LocalStorage kaydı
+localStorage.setItem("plan_"+username,plan);
+// Backend kaydı simülasyonu (isteğe bağlı Node.js entegrasyonu varsa fetch ile çalışır)
+// fetch('http://localhost:3000/save-plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,plan})});
 alert("Plan kaydedildi!");
 }
 
 // PLAN GETİRME
-function getPlan(){
-let username = document.getElementById("username").value;
-if(!username){
-alert("Kullanıcı adını gir!");
-return;
-}
-let kayitli = localStorage.getItem("plan_" + username);
-if(kayitli){
-document.getElementById("program").innerHTML = kayitli;
-}else{
-document.getElementById("program").innerHTML = "Plan bulunamadı";
-}
+async function getPlan(){
+let username=document.getElementById("username").value;
+if(!username){alert("Kullanıcı adını gir!");return;}
+let kayitli=localStorage.getItem("plan_"+username);
+// Backend get simülasyonu (isteğe bağlı)
+// let res=await fetch(`http://localhost:3000/get-plan/${username}`);
+// let data=await res.json();
+// let kayitli=data.plan||kayitli;
+document.getElementById("program").innerHTML=kayitli||"Plan bulunamadı";
 }
 
-// PREMIUM BUTONU (simülasyon)
-function payPremium(){
-let username = document.getElementById("username").value;
-if(!username){
-alert("Kullanıcı adını gir!");
-return;
-}
-alert(username + " premium oldu! (Ödeme simülasyonu)");
+// PREMIUM BUTONU (Stripe simülasyonu)
+async function payPremium(){
+let username=document.getElementById("username").value;
+if(!username){alert("Kullanıcı adını gir!");return;}
+// Local simülasyon
+alert(username+" premium oldu! (Ödeme simülasyonu)");
+// Canlı Stripe entegrasyonu varsa fetch ile create-checkout-session çağrılır
+// let res=await fetch('http://localhost:3000/create-checkout-session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username})});
+// let data=await res.json();
+// window.location.href=data.url;
 }
 
-// SAYFA AÇILDIĞINDA SON PLAN YÜKLE
-window.onload = function(){
-let username = document.getElementById("username").value;
+// SAYFA YÜKLENİNCE SON PLAN
+window.onload=function(){
+let username=document.getElementById("username").value;
 if(username){
-let kayitli = localStorage.getItem("plan_" + username);
+let kayitli=localStorage.getItem("plan_"+username);
 if(kayitli){
-document.getElementById("program").innerHTML = kayitli;
+document.getElementById("program").innerHTML=kayitli;
 }
 }
 }
