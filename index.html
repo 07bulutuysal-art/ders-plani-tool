@@ -6,12 +6,15 @@
 <title>Planify AI</title>
 
 <style>
+
 body{
 margin:0;
 font-family:sans-serif;
 background:linear-gradient(135deg,#0f0f0f,#1a1a2e);
 color:white;
 }
+
+/* LOGO */
 
 .logo{
 display:flex;
@@ -21,15 +24,10 @@ gap:12px;
 margin-top:40px;
 }
 
-.logo-icon{
-width:60px;
-height:60px;
-border-radius:18px;
-background:linear-gradient(135deg,#00ffcc,#7d2ae8);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
+.logo-img{
+width:65px;
+height:65px;
+object-fit:contain;
 }
 
 .logo-text{
@@ -40,6 +38,8 @@ background:linear-gradient(90deg,#00ffcc,#7d2ae8);
 color:transparent;
 }
 
+/* KART */
+
 .container{
 max-width:500px;
 margin:30px auto;
@@ -49,6 +49,8 @@ border-radius:20px;
 backdrop-filter:blur(15px);
 }
 
+/* INPUT */
+
 input{
 width:100%;
 padding:15px;
@@ -57,6 +59,8 @@ border-radius:12px;
 border:none;
 font-size:16px;
 }
+
+/* BUTTON */
 
 button{
 width:100%;
@@ -75,13 +79,14 @@ cursor:pointer;
 margin-top:20px;
 line-height:1.7;
 }
+
 </style>
 </head>
 
 <body>
 
 <div class="logo">
-<div class="logo-icon">🤖</div>
+<img src="logo.png" class="logo-img">
 <div class="logo-text">Planify AI</div>
 </div>
 
@@ -89,7 +94,7 @@ line-height:1.7;
 
 <h2>AI Ders Planı Oluştur</h2>
 
-<input type="text" id="hedef">
+<input type="text" id="hedef" placeholder="Hedefin ne?">
 <input type="text" id="dersler" placeholder="Dersleri virgülle yaz">
 <input type="number" id="saat" placeholder="Günlük kaç saat?">
 
