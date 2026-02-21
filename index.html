@@ -13,6 +13,7 @@ font-family:sans-serif;
 background:linear-gradient(135deg,#0f0f0f,#1a1a2e);
 color:white;
 }
+/* LOGO */
 .logo{
 display:flex;
 justify-content:center;
@@ -32,6 +33,7 @@ background:linear-gradient(90deg,#00ffcc,#7d2ae8);
 -webkit-background-clip:text;
 color:transparent;
 }
+/* KART */
 .container{
 max-width:500px;
 margin:30px auto;
@@ -40,6 +42,7 @@ padding:30px;
 border-radius:20px;
 backdrop-filter:blur(15px);
 }
+/* INPUT */
 input{
 width:100%;
 padding:15px;
@@ -48,6 +51,7 @@ border-radius:12px;
 border:none;
 font-size:16px;
 }
+/* BUTTON */
 button{
 width:100%;
 padding:15px;
@@ -78,24 +82,29 @@ line-height:1.7;
 
 <h2>AI Ders Planı Oluştur</h2>
 
+<input type="text" id="username" placeholder="Kullanıcı Adı">
 <input type="text" id="hedef" placeholder="Hedefin ne?">
 <input type="text" id="dersler" placeholder="Dersleri virgülle yaz">
 <input type="number" id="saat" placeholder="Günlük kaç saat?">
 
 <button onclick="planOlustur()">AI Plan Oluştur</button>
-<button onclick="premiumAlert()">Premium Özellik</button>
+<button onclick="savePlan()">Planı Kaydet</button>
+<button onclick="getPlan()">Planı Göster</button>
+<button onclick="payPremium()">Premium Ol</button>
 
 <div id="program"></div>
 
 </div>
 
 <script>
-// Kullanıcı plan kaydetmek için LocalStorage kullanılıyor
+// PLAN OLUŞTURMA
 function planOlustur(){
 let hedef = document.getElementById("hedef").value;
 let dersler = document.getElementById("dersler").value.split(",");
 let saat = document.getElementById("saat").value;
-if(!hedef || dersler.length===0 || !saat){
+let username = document.getElementById("username").value;
+
+if(!username || !hedef || dersler.length===0 || !saat){
 alert("Lütfen tüm alanları doldur!");
 return;
 }
@@ -109,28 +118,58 @@ let sure = (saat/dersler.length).toFixed(1);
 program += `📚 ${ders} → ${gorev} (${sure} saat)<br>`;
 });
 
-// Motivasyon
 program += `<br>🔥 Motivasyon: ${hedef} hedefine ulaşmak için bugün attığın küçük adımlar yarının büyük başarısını oluşturacak. Odaklan, dikkatini dağıtan şeyleri kapat ve planına sadık kal. Sen bunu yapabilecek güce sahipsin.`;
 
-// LocalStorage’a kaydet
-localStorage.setItem("sonPlan",program);
-
-document.getElementById("program").innerHTML=program;
+document.getElementById("program").innerHTML = program;
 }
 
-// Sayfa açıldığında planı geri yükle
+// PLAN KAYDETME (LocalStorage)
+function savePlan(){
+let username = document.getElementById("username").value;
+let program = document.getElementById("program").innerHTML;
+if(!username || !program){
+alert("Önce plan oluştur ve kullanıcı adını gir!");
+return;
+}
+localStorage.setItem("plan_" + username, program);
+alert("Plan kaydedildi!");
+}
+
+// PLAN GETİRME
+function getPlan(){
+let username = document.getElementById("username").value;
+if(!username){
+alert("Kullanıcı adını gir!");
+return;
+}
+let kayitli = localStorage.getItem("plan_" + username);
+if(kayitli){
+document.getElementById("program").innerHTML = kayitli;
+}else{
+document.getElementById("program").innerHTML = "Plan bulunamadı";
+}
+}
+
+// PREMIUM BUTONU (simülasyon)
+function payPremium(){
+let username = document.getElementById("username").value;
+if(!username){
+alert("Kullanıcı adını gir!");
+return;
+}
+alert(username + " premium oldu! (Ödeme simülasyonu)");
+}
+
+// SAYFA AÇILDIĞINDA SON PLAN YÜKLE
 window.onload = function(){
-let kayitli = localStorage.getItem("sonPlan");
+let username = document.getElementById("username").value;
+if(username){
+let kayitli = localStorage.getItem("plan_" + username);
 if(kayitli){
 document.getElementById("program").innerHTML = kayitli;
 }
 }
-
-// Premium buton simülasyonu
-function premiumAlert(){
-alert("Premium Özellik: AI önerili detaylı plan ve ilerleme takibi yakında eklenecek! Satış için hazır.");
 }
-
 </script>
 
 </body>
