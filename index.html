@@ -44,6 +44,50 @@ cursor:pointer;
 margin-top:15px;
 text-align:left;
 }
+
+.logo{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+margin-top:20px;
+}
+
+.logo-icon{
+width:55px;
+height:55px;
+border-radius:16px;
+background:linear-gradient(135deg,#00ffcc,#7d2ae8);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+color:white;
+box-shadow:0 0 25px rgba(125,42,232,0.6);
+transition:0.3s;
+}
+
+.logo-icon:hover{
+transform:scale(1.1) rotate(8deg);
+box-shadow:0 0 35px rgba(0,255,204,0.9);
+}
+
+.logo-text{
+font-size:38px;
+font-weight:800;
+background:linear-gradient(90deg,#00ffcc,#7d2ae8);
+-webkit-background-clip:text;
+color:transparent;
+font-family:sans-serif;
+}
+
+.tagline{
+text-align:center;
+color:#aaa;
+margin-bottom:30px;
+}
+
+
 </style>
 </head>
 
@@ -52,25 +96,11 @@ text-align:left;
 <div class="container">
 <div style="display:flex;align-items:center;gap:10px;justify-content:center;">
 
-  <div style="
-  width:45px;
-  height:45px;
-  background:#1DB954;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  color:white;
-  font-weight:bold;">
-  P
-  </div>
-
-  <h1>Planify</h1>
-
+  <div class="logo">
+  <div class="logo-icon">⚡</div>
+  <div class="logo-text">Planify</div>
 </div>
-
-<p>Akıllı ders çalışma planı oluşturucu</p>
+<p class="tagline">Akıllı ders çalışma planı oluşturucu</p>
 
 <input type="text" id="subjects" placeholder="Dersleri virgülle yaz">
 
