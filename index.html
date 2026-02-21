@@ -6,7 +6,6 @@
 <title>Planify AI</title>
 
 <style>
-
 body{
 margin:0;
 font-family:sans-serif;
@@ -76,7 +75,6 @@ cursor:pointer;
 margin-top:20px;
 line-height:1.6;
 }
-
 </style>
 </head>
 
@@ -91,6 +89,7 @@ line-height:1.6;
 
 <h2>AI Ders Planı Oluştur</h2>
 
+<input type="text" id="hedef" placeholder="Hedefin ne? (Örn: YKS kazanmak)">
 <input type="text" id="dersler" placeholder="Dersleri virgülle yaz">
 <input type="number" id="saat" placeholder="Günlük kaç saat?">
 
@@ -104,24 +103,25 @@ line-height:1.6;
 
 function planOlustur(){
 
+let hedef = document.getElementById("hedef").value;
 let dersler = document.getElementById("dersler").value.split(",");
 let saat = document.getElementById("saat").value;
 
-let zorluk = ["Kolay tekrar","Test çöz","Konu çalış","Video izle"];
-let program = "<h3>🤖 AI Önerisi:</h3>";
+let gorevler = ["Konu çalış","Test çöz","Tekrar yap","Video izle"];
 
-dersler.forEach((ders,i)=>{
+let program = `<h3>🎯 Hedef: ${hedef}</h3>`;
+program += "<h3>🤖 AI Çalışma Planın:</h3>";
 
-let gorev = zorluk[Math.floor(Math.random()*zorluk.length)];
+dersler.forEach(ders => {
+
+let gorev = gorevler[Math.floor(Math.random()*gorevler.length)];
 let sure = (saat/dersler.length).toFixed(1);
 
-program += `
-📚 ${ders} → ${gorev} (${sure} saat) <br>
-`;
+program += `📚 ${ders} → ${gorev} (${sure} saat)<br>`;
 
 });
 
-program += "<br>🔥 25 dk çalışma + 5 dk mola sistemi önerilir.";
+program += `<br>🔥 Motivasyon: ${hedef} için bugün disiplinli çalış!`;
 
 document.getElementById("program").innerHTML = program;
 
